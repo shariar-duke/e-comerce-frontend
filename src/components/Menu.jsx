@@ -1,10 +1,9 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const isActiveStyle = { color: "#ff9900" };
 const inactiveStyle = { color: 'grey' };
 
 const Menu = () => {
-    const location = useLocation();
     return (
         <nav className="navbar navbar-dark bg-dark">
             <ul className="nav nav-tabs">
