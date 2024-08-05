@@ -1,18 +1,43 @@
-import { Link } from "react-router-dom";
-export default function Menu() {
+import { NavLink, useLocation } from "react-router-dom";
+
+const isActiveStyle = { color: "#ff9900" };
+const inactiveStyle = { color: 'grey' };
+
+const Menu = () => {
+    const location = useLocation();
     return (
         <nav className="navbar navbar-dark bg-dark">
             <ul className="nav nav-tabs">
                 <li className="nav-item">
-                    <Link to="/home" className="nav-link">Home</Link>
+                    <NavLink
+                        to="/home"
+                        style={({ isActive }) => isActive ? isActiveStyle : inactiveStyle}
+                        className="nav-link"
+                    >
+                        Home
+                    </NavLink>
                 </li>
                 <li className="nav-item">
-                    <Link to="/login" className="nav-link">Login</Link>
+                    <NavLink
+                        to="/login"
+                        style={({ isActive }) => isActive ? isActiveStyle : inactiveStyle}
+                        className="nav-link"
+                    >
+                        Login
+                    </NavLink>
                 </li>
                 <li className="nav-item">
-                    <Link to="/register" className="nav-link">Register</Link>
+                    <NavLink
+                        to="/register"
+                        style={({ isActive }) => isActive ? isActiveStyle : inactiveStyle}
+                        className="nav-link"
+                    >
+                        Register
+                    </NavLink>
                 </li>
             </ul>
         </nav>
     )
 }
+
+export default Menu;
