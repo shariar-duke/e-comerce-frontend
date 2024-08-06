@@ -1,3 +1,2 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
-export const API = process.env.REACT_APP_API_URL 
+// src/utils/config.js
+export const API = import.meta.env.VITE_API_URL;
