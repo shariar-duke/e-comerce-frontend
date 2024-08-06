@@ -1,6 +1,10 @@
+/* eslint-disable no-unused-vars */
 import Layout from "../Layout";
 import { useState } from "react";
 import { showError, showLoading } from "../../utils/messages.jsx"
+import { register } from "../../api/apiAuth.js"; // register function take call kore anlam
+import { Link } from "react-router-dom"
+
 export default function Register() {
     const [values, setValues] = useState({
         name: "",
@@ -24,10 +28,56 @@ export default function Register() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log("The Data I should got is", values)
+        // jokhn form ta submit krte jabo tokhn values gula nibo , error option ta false kore dibo . loading ta k true kore dibo ...submit button ta jno tokhn disable hoy 
+        // submit button k disabled kore dibo 
+        setValues({ ...values, error: false, loading: true, disabled: true })
+
+        // er por ei values gula dia register function take call kore dibe 
+
+        // register function take ekta object dia call korte hoy ei object er modhe sob property dia amra call korbo na just name, email and password dia call korbo
+
+
+        register({ name, email, password }).then(response => setValues({
+            name: "",
+            email: "",
+            password: "",
+            success: true,
+            disabled: false,
+            loading: false
+        })).catch(err => {
+            let errMsg = "SomeThing went wrong";
+            if (err.response) {
+                errMsg = err.response.data;
+            }
+
+            else {
+                errMsg = "SomeThing went wrong"
+            }
+
+            setValues({ ...values, error: errMsg, disabled: false, loading: false })
+
+        })
+
+        // register function ta ekta post request kore so o ekta promise return krobe 
+
+    }
+
+    // for displaying success 
+    const showSuccess = () => {
+
+
+        if (success) return (
+            <div className="alert alert-primary">
+                New Account Create please Login . <Link to="/login">Login</Link>
+            </div>
+        )
     }
     return (
         <Layout title="Register" className="container col-md-8 offset-md-2">
+
+            {showLoading(loading)}
+            {showError(error, error)}
+            {showSuccess()}
             <h3>Register Here</h3>
             <hr />
             <form onSubmit={handleSubmit}>
