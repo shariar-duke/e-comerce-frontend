@@ -45,20 +45,14 @@ export default function Register() {
             disabled: false,
             loading: false
         })).catch(err => {
-            let errMsg = "SomeThing went wrong";
-            if (err.response) {
-                errMsg = err.response.data;
-            }
 
-            else {
-                errMsg = "SomeThing went wrong"
-            }
+            const errMsg = err.response ? err.response.data : "Something went wrong";
+            setValues({ ...values, error: errMsg, disabled: false, loading: false });
 
-            setValues({ ...values, error: errMsg, disabled: false, loading: false })
 
         })
 
-        // register function ta ekta post request kore so o ekta promise return krobe 
+
 
     }
 
