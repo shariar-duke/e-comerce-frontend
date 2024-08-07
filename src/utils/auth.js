@@ -29,14 +29,21 @@ export const isAuthenticated = () => {
 // now function to get user Data 
 
 export const userInfo = () => {
-    const jwt = JSON.parse(localStorage.getItem('jwt'));
-    const decoded = jwtDecode(jwt);
-
-    return {
-        ...decoded, token: jwt
+    try {
+        const jwt = localStorage.getItem('jwt');
+        if (!jwt) {
+            return {}; // No JWT found
+        }
+        const decoded = jwtDecode(jwt);
+        return {
+            ...decoded,
+            token: jwt
+        };
+    } catch (error) {
+        console.error('Error decoding JWT:', error);
+        return {}; // Return an empty object or handle the error as needed
     }
-}
-
+};
 // return hisebe decode howa information gula as well as token tao send kroe dbo...
 
 // now I will write the signOut function 
@@ -44,6 +51,8 @@ export const userInfo = () => {
 export const signOut = (cb) => {
     if (typeof window !== "undefined") {
         localStorage.removeItem('jwt');
-        cb();
+        if (cb) {
+            cb();
+        }
     }
-}
+};
