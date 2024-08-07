@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { signOut } from "../utils/auth";
+import { signOut, isAuthenticated } from "../utils/auth";
 
 const isActiveStyle = { color: "#ff9900" };
 const inactiveStyle = { color: 'grey' };
@@ -25,30 +25,42 @@ const Menu = () => {
                         Home
                     </NavLink>
                 </li>
-                <li className="nav-item">
-                    <NavLink
-                        to="/login"
-                        style={({ isActive }) => isActive ? isActiveStyle : inactiveStyle}
-                        className="nav-link"
-                    >
-                        Login
-                    </NavLink>
-                </li>
-                <li className="nav-item">
-                    <NavLink
-                        to="/register"
-                        style={({ isActive }) => isActive ? isActiveStyle : inactiveStyle}
-                        className="nav-link"
-                    >
-                        Register
-                    </NavLink>
-                </li>
 
-                <li className="nav-item">
-                    <span className="nav-link" style={{ cursor: 'pointer', color: "grey" }} onClick={handleLogout}>
-                        Logout
-                    </span>
-                </li>
+                {
+                    !isAuthenticated() &&
+
+                    <>
+                        <li className="nav-item">
+                            <NavLink
+                                to="/login"
+                                style={({ isActive }) => isActive ? isActiveStyle : inactiveStyle}
+                                className="nav-link"
+                            >
+                                Login
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink
+                                to="/register"
+                                style={({ isActive }) => isActive ? isActiveStyle : inactiveStyle}
+                                className="nav-link"
+                            >
+                                Register
+                            </NavLink>
+                        </li>
+
+                    </>
+                }
+
+                {
+                    isAuthenticated() && <li className="nav-item">
+                        <span className="nav-link" style={{ cursor: 'pointer', color: "grey" }} onClick={handleLogout}>
+                            Logout
+                        </span>
+                    </li>
+                }
+
+
             </ul>
         </nav>
     );
