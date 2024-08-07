@@ -1,6 +1,17 @@
+/* eslint-disable no-unused-vars */
 import Layout from "../Layout";
-
+import { useState } from "react";
 export default function Login() {
+    const [values, setValues] = useState({
+        name: "",
+        email: "",
+        password: "",
+        error: false,
+        loading: false,
+        disabled: false,
+        success: false,
+    })
+    const { name, email, password, success, error, loading, disabled } = values;
     return (
         <Layout title="Login" className="container col-md-8 offset-md-2">
             <h3>Login Here</h3>
