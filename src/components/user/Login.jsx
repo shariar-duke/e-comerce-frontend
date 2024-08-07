@@ -5,6 +5,8 @@ import { showError, showLoading } from "../../utils/messages";
 import { login } from "../../api/apiAuth";
 import { Link, useNavigate } from "react-router-dom";
 
+import { authenticate } from "../../utils/auth"
+
 export default function Login() {
     const navigate = useNavigate();
     const [values, setValues] = useState({
@@ -32,15 +34,19 @@ export default function Login() {
 
         login({ email, password })
             .then((response) => {
-                setValues({
-                    email: "",
-                    password: "",
-                    error: "",
-                    loading: false,
-                    disabled: false,
-                    redirect: true,
-                });
+                authenticate(response?.data?.token, () => {
+                    setValues({
+                        email: "",
+                        password: "",
+                        error: "",
+                        loading: false,
+                        disabled: false,
+                        redirect: true,
+                    });
+                })
+
             })
+
             .catch((err) => {
                 const errMsg = err.response ? err.response.data : "Something went wrong";
                 setValues({ ...values, error: errMsg, disabled: false, loading: false });
