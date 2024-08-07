@@ -1,6 +1,9 @@
 import Layout from "../Layout";
-
+import { userInfo } from "../../utils/auth";
 export default function Dashboard() {
+
+    const { name, email, role } = userInfo()
+
     return (
         <Layout title="Dashboard" className="container mt-4">
             <div className="row">
@@ -32,9 +35,9 @@ export default function Dashboard() {
                                     User Information
                                 </div>
                                 <div className="card-body">
-                                    <p className="fs-5"><strong>Name:</strong> John Doe</p>
-                                    <p className="fs-5"><strong>Email:</strong> john.doe@example.com</p>
-                                    <p className="fs-5"><strong>Role:</strong> User</p>
+                                    <p className="fs-5"><strong>Name:</strong> {name}</p>
+                                    <p className="fs-5"><strong>Email:</strong> {email}</p>
+                                    <p className="fs-5"><strong>Role:</strong> {role} </p>
                                 </div>
                             </div>
                         </div>
