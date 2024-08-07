@@ -7,8 +7,7 @@ const inactiveStyle = { color: 'grey' };
 const Menu = () => {
     const navigate = useNavigate();  // Initialize useNavigate
 
-    const { role } = userInfo()
-    console.log("The role is", role)
+
     const handleLogout = () => {
         signOut(() => {
             navigate('/login');  // Navigate to login page after logout
@@ -59,11 +58,11 @@ const Menu = () => {
 
                         <li className="nav-item">
                             <NavLink
-                                to={`${role}/dashboard`}
+                                to={`${userInfo().role}/dashboard`}
                                 style={({ isActive }) => isActive ? isActiveStyle : inactiveStyle}
                                 className="nav-link"
                             >
-                                {`${role === "user" ? "User" : "Admin"}`}_Dashbaord
+                                {`${userInfo().role === "user" ? "User" : "Admin"}`}_Dashbaord
                             </NavLink>
                         </li>
 
