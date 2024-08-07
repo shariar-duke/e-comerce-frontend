@@ -1,3 +1,5 @@
+import jwt_docode from 'jwt-decode';  // jwt_decode package install kroa hoilo.
+
 export const authenticate = (token, cb) => {
     if (typeof window !== "undefined") {
         localStorage.setItem('jwt', JSON.stringify(token))
@@ -19,10 +21,24 @@ export const isAuthenticated = () => {
     }
 
     else if (localStorage.getItem('jwt')) {
-        return JSON.parse(localStorage.getItem(''))
+        const { exp } = jwt_docode(JSON.parse(localStorage.getItem('jwt')))
+        return (new Date).getTime() < exp * 1000
     }
-
     else return false;
 }
 
-//
+// now function to get user Data 
+
+export const userInfo = () => {
+    const jwt = JSON.parse(localStorage.getItem('jwt'));
+    const decoded = jwt_docode(jwt)
+
+    return {
+        ...decoded, token: jwt
+    }
+}
+
+// return hisebe decode howa information gula as well as token tao send kroe dbo...
+
+
+// now 
