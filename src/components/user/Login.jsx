@@ -1,31 +1,95 @@
 /* eslint-disable no-unused-vars */
 import Layout from "../Layout";
 import { useState } from "react";
+import { showError, showLoading } from "../../utils/messages";
+import { login } from "../../api/apiAuth";
+import { Link, useNavigate } from "react-router-dom";
+
 export default function Login() {
+    const navigate = useNavigate();
     const [values, setValues] = useState({
-        name: "",
         email: "",
         password: "",
         error: false,
         loading: false,
         disabled: false,
-        success: false,
-    })
-    const { name, email, password, success, error, loading, disabled } = values;
+        redirect: false,
+    });
+
+    const { email, password, error, loading, disabled, redirect } = values;
+
+    const handleChange = (e) => {
+        setValues({
+            ...values,
+            error: false,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setValues({ ...values, error: false, loading: true, disabled: true });
+
+        login({ email, password })
+            .then((response) => {
+                setValues({
+                    email: "",
+                    password: "",
+                    error: "",
+                    loading: false,
+                    disabled: false,
+                    redirect: true,
+                });
+            })
+            .catch((err) => {
+                const errMsg = err.response ? err.response.data : "Something went wrong";
+                setValues({ ...values, error: errMsg, disabled: false, loading: false });
+            });
+    };
+
+    const redirectUser = () => {
+        if (redirect) {
+            navigate("/");
+        }
+    };
+
     return (
         <Layout title="Login" className="container col-md-8 offset-md-2">
+            {showLoading(loading)}
+            {showError(error, error)}
+            {redirectUser()}
             <h3>Login Here</h3>
             <hr />
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="email">Email address</label>
-                    <input type="email" className="form-control" id="email" placeholder="Enter your email" required />
+                    <input
+                        onChange={handleChange}
+                        type="email"
+                        className="form-control"
+                        name="email"
+                        id="email"
+                        value={email}
+                        placeholder="Enter your email"
+                        required
+                    />
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">Password</label>
-                    <input type="password" className="form-control" id="password" placeholder="Enter your password" required />
+                    <input
+                        onChange={handleChange}
+                        type="password"
+                        className="form-control"
+                        name="password"
+                        id="password"
+                        value={password}
+                        placeholder="Enter your password"
+                        required
+                    />
                 </div>
-                <button type="submit" className="btn btn-primary mt-3">Login</button>
+                <button type="submit" className="btn btn-primary mt-3" disabled={disabled}>
+                    Login
+                </button>
             </form>
         </Layout>
     );
