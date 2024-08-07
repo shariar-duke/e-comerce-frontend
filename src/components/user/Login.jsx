@@ -5,10 +5,12 @@ import { showError, showLoading } from "../../utils/messages";
 import { login } from "../../api/apiAuth";
 import { Link, useNavigate } from "react-router-dom";
 
-import { authenticate } from "../../utils/auth"
+import { authenticate, userInfo } from "../../utils/auth"
+import Dashboard from "./Dashboard";
 
 export default function Login() {
     const navigate = useNavigate();
+    const { role } = userInfo(); // Get role from userInfo function
     const [values, setValues] = useState({
         email: "",
         password: "",
@@ -55,7 +57,7 @@ export default function Login() {
 
     const redirectUser = () => {
         if (redirect) {
-            navigate("/");
+            navigate(`/${role}/dashboard`);
         }
     };
 
