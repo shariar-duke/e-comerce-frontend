@@ -53,11 +53,24 @@ const Menu = () => {
                 }
 
                 {
-                    isAuthenticated() && <li className="nav-item">
-                        <span className="nav-link" style={{ cursor: 'pointer', color: "grey" }} onClick={handleLogout}>
-                            Logout
-                        </span>
-                    </li>
+                    isAuthenticated && <>
+
+                        <li className="nav-item">
+                            <NavLink
+                                to="/dashboard"
+                                style={({ isActive }) => isActive ? isActiveStyle : inactiveStyle}
+                                className="nav-link"
+                            >
+                                Dashbaord
+                            </NavLink>
+                        </li>
+
+                        <li className="nav-item">
+                            <span className="nav-link" style={{ cursor: 'pointer', color: "grey" }} onClick={handleLogout}>
+                                Logout
+                            </span>
+                        </li>
+                    </>
                 }
 
 
