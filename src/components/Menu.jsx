@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { signOut, isAuthenticated } from "../utils/auth";
+import { signOut, isAuthenticated, userInfo } from "../utils/auth";
 
 const isActiveStyle = { color: "#ff9900" };
 const inactiveStyle = { color: 'grey' };
@@ -7,6 +7,8 @@ const inactiveStyle = { color: 'grey' };
 const Menu = () => {
     const navigate = useNavigate();  // Initialize useNavigate
 
+    const { role } = userInfo()
+    console.log("The role is", role)
     const handleLogout = () => {
         signOut(() => {
             navigate('/login');  // Navigate to login page after logout
@@ -57,11 +59,11 @@ const Menu = () => {
 
                         <li className="nav-item">
                             <NavLink
-                                to="/dashboard"
+                                to={`${role}/dashboard`}
                                 style={({ isActive }) => isActive ? isActiveStyle : inactiveStyle}
                                 className="nav-link"
                             >
-                                Dashbaord
+                                {`${role === "user" ? "User" : "Admin"}`}_Dashbaord
                             </NavLink>
                         </li>
 
