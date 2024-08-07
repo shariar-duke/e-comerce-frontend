@@ -1,9 +1,18 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { signOut } from "../utils/auth";
 
 const isActiveStyle = { color: "#ff9900" };
 const inactiveStyle = { color: 'grey' };
 
 const Menu = () => {
+    const navigate = useNavigate();  // Initialize useNavigate
+
+    const handleLogout = () => {
+        signOut(() => {
+            navigate('/login');  // Navigate to login page after logout
+        });
+    };
+
     return (
         <nav className="navbar navbar-dark bg-dark">
             <ul className="nav nav-tabs">
@@ -34,9 +43,15 @@ const Menu = () => {
                         Register
                     </NavLink>
                 </li>
+
+                <li className="nav-item">
+                    <span className="nav-link" style={{ cursor: 'pointer', color: "grey" }} onClick={handleLogout}>
+                        Logout
+                    </span>
+                </li>
             </ul>
         </nav>
-    )
-}
+    );
+};
 
 export default Menu;
