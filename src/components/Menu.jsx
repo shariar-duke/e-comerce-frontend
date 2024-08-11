@@ -12,7 +12,7 @@ const Menu = () => {
     useEffect(() => {
         // Fetch role from userInfo and set it
         const fetchRole = () => {
-            console.log("User Info:", user);
+
             const user = userInfo();
             if (user && user.role) {
                 setRole(user.role);
