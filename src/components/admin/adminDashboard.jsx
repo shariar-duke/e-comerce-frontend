@@ -3,6 +3,7 @@ import { userInfo } from "../../utils/auth";
 export default function AdminDashboard() {
 
     const { name, email, role } = userInfo()
+    console.log("Admin Dashboard Role:", role);
 
     return (
         <Layout title="Dashboard" className="container mt-4">
@@ -16,7 +17,7 @@ export default function AdminDashboard() {
                         <div className="card-body">
                             <ul className="list-unstyled">
                                 <li>
-                                    <a href="/my-cart" className="btn btn-link fs-5"> Create Category </a>
+                                    <a href="/create/category" className="btn btn-link fs-5"> Create Category </a>
                                 </li>
                                 <li>
                                     <a href="/update-profile" className="btn btn-link fs-5">Create Product </a>

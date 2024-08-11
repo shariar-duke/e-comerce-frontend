@@ -5,3 +5,4 @@ import { isAuthenticated } from "../../utils/auth";
 export default function PrivateRoute({ element: Element, ...rest }) {
     return isAuthenticated() ? <Element {...rest} /> : <Navigate to="/login" />
 }
+

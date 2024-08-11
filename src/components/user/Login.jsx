@@ -1,16 +1,14 @@
 /* eslint-disable no-unused-vars */
 import Layout from "../Layout";
+import { useEffect } from "react";
 import { useState } from "react";
 import { showError, showLoading } from "../../utils/messages";
 import { login } from "../../api/apiAuth";
 import { Link, useNavigate } from "react-router-dom";
-
-import { authenticate, isAuthenticated, userInfo } from "../../utils/auth"
-import Dashboard from "./Dashboard";
+import { authenticate, isAuthenticated, userInfo } from "../../utils/auth";
 
 export default function Login() {
     const navigate = useNavigate();
-    const { role } = userInfo(); // Get role from userInfo function
     const [values, setValues] = useState({
         email: "",
         password: "",
@@ -46,30 +44,28 @@ export default function Login() {
                         redirect: true,
                     });
                 })
-
             })
-
             .catch((err) => {
                 const errMsg = err.response ? err.response.data : "Something went wrong";
                 setValues({ ...values, error: errMsg, disabled: false, loading: false });
             });
     };
 
-    const redirectUser = () => {
+    useEffect(() => {
         if (redirect) {
+            const { role } = userInfo();
             navigate(`/${role}/dashboard`);
         }
 
-        if (isAuthenticated) {
-            navigate("/");
-        }
-    };
+        // if (isAuthenticated()) {
+        //     navigate("/");
+        // }
+    }, [redirect]);
 
     return (
         <Layout title="Login" className="container col-md-8 offset-md-2">
             {showLoading(loading)}
             {showError(error, error)}
-            {redirectUser()}
             <h3>Login Here</h3>
             <hr />
             <form onSubmit={handleSubmit}>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { showError, showLoading } from "../../utils/messages.jsx"
 import { register } from "../../api/apiAuth.js"; // register function take call kore anlam
 import { Link } from "react-router-dom"
+import { isAuthenticated } from "../../utils/auth.js";
 
 export default function Register() {
     const [values, setValues] = useState({

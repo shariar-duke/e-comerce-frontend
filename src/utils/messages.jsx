@@ -7,11 +7,6 @@ export const showError = (error, message) => {
 
 // eta success ta show korarnor jnno
 
-export const showSuccess = (success, message) => {
-    if (success) {
-        return <div className="alert alert-success">{message}</div>
-    }
-}
 
 
 // eta loading er jnno  

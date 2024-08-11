@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
+// AdminRoute.jsx
+import { Navigate } from 'react-router-dom';
+import { isAuthenticated, userInfo } from '../utils/auth';
 
-import { Navigate } from "react-router-dom";
-import { isAuthenticated, userInfo } from "../utils/auth";
-
-export const AdminPrivateRoute = ({ element: Element, ...rest }) => {
+export const AdminPrivateRoute = ({ element: Component }) => {
     const { role } = userInfo();
-    return isAuthenticated() && role === "admin" ? <Element {...rest} /> : <Navigate to="/home" />
+    console.log("The role is", role)
+    return isAuthenticated() && role === 'admin' ? <Component /> : <Navigate to="/home" />;
 };
-
-
