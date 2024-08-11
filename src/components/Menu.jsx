@@ -1,18 +1,34 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { signOut, isAuthenticated, userInfo } from "../utils/auth";
+import { useState, useEffect } from "react";
 
 const isActiveStyle = { color: "#ff9900" };
 const inactiveStyle = { color: 'grey' };
 
 const Menu = () => {
-    const navigate = useNavigate();  // Initialize useNavigate
+    const navigate = useNavigate();
+    const [role, setRole] = useState(null); // State to manage the role
 
+    useEffect(() => {
+        // Fetch role from userInfo and set it
+        const fetchRole = () => {
+            const user = userInfo();
+            if (user && user.role) {
+                setRole(user.role);
+            }
+        };
+
+        fetchRole(); // Fetch role on component mount
+    }, []); // Run once on component mount
 
     const handleLogout = () => {
         signOut(() => {
-            navigate('/login');  // Navigate to login page after logout
+            navigate('/login');
         });
     };
+
+    // Check role to ensure it’s not null
+    console.log("The role is", role);
 
     return (
         <nav className="navbar navbar-dark bg-dark">
@@ -49,20 +65,18 @@ const Menu = () => {
                                 Register
                             </NavLink>
                         </li>
-
                     </>
                 }
 
                 {
-                    isAuthenticated && <>
-
+                    isAuthenticated() && role && <>
                         <li className="nav-item">
                             <NavLink
-                                to={`${userInfo().role}/dashboard`}
+                                to={`/${role}/dashboard`}
                                 style={({ isActive }) => isActive ? isActiveStyle : inactiveStyle}
                                 className="nav-link"
                             >
-                                {`${userInfo().role === "user" ? "User" : "Admin"}`}_Dashbaord
+                                {`${role === "user" ? "User" : "Admin"}`} Dashboard
                             </NavLink>
                         </li>
 
@@ -73,8 +87,6 @@ const Menu = () => {
                         </li>
                     </>
                 }
-
-
             </ul>
         </nav>
     );
