@@ -5,9 +5,11 @@ import Login from './user/Login';
 import Register from './user/Register';
 import Dashboard from './user/Dashboard';
 import PrivateRoute from './user/PrivateRoute';
-import AdminDashboard from './admin/adminDashboard';
+import AdminDashboard from "./admin/AdminDashboard"
 import { AdminPrivateRoute } from '.././protectedRoutes/AdminRoute';
-import Random from './Random';
+import CreateCategories from './admin/CreateCategories';
+
+
 
 export default function Main() {
     return (
@@ -19,6 +21,7 @@ export default function Main() {
                 <Route path="/register" element={<Register />} />
                 <Route path='/user/dashboard' element={<PrivateRoute element={Dashboard} />} />
                 <Route path='/admin/dashboard' element={<AdminPrivateRoute element={AdminDashboard} />} />
+
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
         </div>

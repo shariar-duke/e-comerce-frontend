@@ -1,9 +1,11 @@
+
 import { useState } from 'react';
 import Layout from '../Layout';
-import { showError, showSuccess } from '../../utils/messages';
+import { showError, showLoading } from '../../utils/messages';
 import { Link } from 'react-router-dom';
 
-const CreateCategory = () => {
+const CreateCategories = () => {
+
     const [values, setValues] = useState({
         name: '',
         error: false,
@@ -46,20 +48,24 @@ const CreateCategory = () => {
         <Link to="/admin/dashboard" className="text-warning">Go to Dashboard</Link>
     </div>)
 
-
     return (
         <Layout title="Add a new category" description="Ready to add a new category?">
             <div className="row">
                 <div className="col-md-8 offset-md-2">
                     {showError(error, error)}
-                    {showSuccess(success, 'Category Created!')}
                     {categoryForm()}
                     {goBack()}
                 </div>
             </div>
         </Layout>
     );
-
 }
 
-export default CreateCategory;
+export default CreateCategories;
+
+
+
+
+
+
+
