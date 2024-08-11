@@ -21,6 +21,7 @@ export default function Main() {
                 <Route path="/register" element={<Register />} />
                 <Route path='/user/dashboard' element={<PrivateRoute element={Dashboard} />} />
                 <Route path='/admin/dashboard' element={<AdminPrivateRoute element={AdminDashboard} />} />
+                <Route path='/create/category' element={<AdminPrivateRoute element={CreateCategories} />} />
 
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
