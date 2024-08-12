@@ -7,6 +7,7 @@ import Dashboard from './user/Dashboard';
 import PrivateRoute from './user/PrivateRoute';
 import AdminDashboard from "./admin/AdminDashboard"
 import { AdminPrivateRoute } from '.././protectedRoutes/AdminRoute';
+import CreateProduct from './admin/CreateProduct';
 import CreateCategories from './admin/CreateCategories';
 
 
@@ -22,7 +23,7 @@ export default function Main() {
                 <Route path='/user/dashboard' element={<PrivateRoute element={Dashboard} />} />
                 <Route path='/admin/dashboard' element={<AdminPrivateRoute element={AdminDashboard} />} />
                 <Route path='/create/category' element={<AdminPrivateRoute element={CreateCategories} />} />
-
+                <Route path='/create/product' element={<AdminPrivateRoute element={CreateProduct} />} />
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
         </div>
