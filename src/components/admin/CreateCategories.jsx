@@ -5,7 +5,7 @@ import { showError, showSuccess, showLoading } from '../../utils/messages';
 import { Link } from 'react-router-dom';
 import { createCategory } from '../../api/apiAdmin';
 import { userInfo } from '../../utils/auth';
-
+import { getCategories, createProduct } from "../../api/apiAdmin"
 const CreateCategory = () => {
     const [values, setValues] = useState({
         name: '',
