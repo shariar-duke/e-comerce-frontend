@@ -1,4 +1,5 @@
 import Layout from "../Layout";
+import { Link } from "react-router-dom";
 import { userInfo } from "../../utils/auth";
 export default function AdminDashboard() {
 
@@ -17,10 +18,10 @@ export default function AdminDashboard() {
                         <div className="card-body">
                             <ul className="list-unstyled">
                                 <li>
-                                    <a href="/create/category" className="btn btn-link fs-5"> Create Category </a>
+                                    <Link to="/create/category" className="btn btn-link fs-5"> Create Category </Link>
                                 </li>
                                 <li>
-                                    <a href="/update-profile" className="btn btn-link fs-5">Create Product </a>
+                                    <Link to="/update-profile" className="btn btn-link fs-5">Create Product </Link>
                                 </li>
                             </ul>
                         </div>

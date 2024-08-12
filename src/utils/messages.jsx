@@ -18,3 +18,8 @@ export const showLoading = (loading) => {
         </div>
     }
 }
+
+
+export const showSuccess = (success, msg) => {
+    if (success) return <div className="alert alert-success">{msg}</div>
+}

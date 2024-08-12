@@ -43,11 +43,14 @@ export default function Login() {
                         disabled: false,
                         redirect: true,
                     });
+
+
                 })
             })
             .catch((err) => {
                 const errMsg = err.response ? err.response.data : "Something went wrong";
                 setValues({ ...values, error: errMsg, disabled: false, loading: false });
+                console.log(err.response.headers)
             });
     };
 
