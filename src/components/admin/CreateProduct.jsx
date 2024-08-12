@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Layout from '../Layout';
-import { Link } from 'react-router-dom';
+import { Link, useFetcher } from 'react-router-dom';
 import { showError, showSuccess, showLoading } from '../../utils/messages';
 import { getCategories, createProduct } from "../../api/apiAdmin"
 const CreateProduct = () => {
@@ -10,6 +10,7 @@ const CreateProduct = () => {
         description: '',
         price: '',
         category: '',
+        categories: [],
         quantity: '',
         loading: false,
         error: false,
@@ -23,6 +24,7 @@ const CreateProduct = () => {
         description,
         price,
         category,
+        categories,
         quantity,
         loading,
         error,
@@ -30,6 +32,23 @@ const CreateProduct = () => {
         formData,
         disabled
     } = values;
+
+    console.log("Here all the categories are", categories)
+
+    useEffect(() => {
+        getCategories().then((response) => {
+
+            setValues({
+                ...values,
+                categories: response.data,
+                formData: new FormData()
+            })
+        }).catch((err) => setValues({
+            ...values,
+            error: "Failed to "
+        }))
+
+    }, [])
 
     const handleChange = (e) => {
 
