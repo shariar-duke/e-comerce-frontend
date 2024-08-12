@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Layout from '../Layout';
 import { Link } from 'react-router-dom';
 import { showError, showSuccess, showLoading } from '../../utils/messages';
-
+import { getCategories, createProduct } from "../../api/apiAdmin"
 const CreateProduct = () => {
     const [values, setValues] = useState({
         name: '',
