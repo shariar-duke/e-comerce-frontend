@@ -120,6 +120,7 @@ const CreateProduct = () => {
                 <label className="text-muted">Category:</label>
                 <select name="category" value={category} onChange={handleChange} className="form-control" required>
                     <option value="">----Select Category----</option>
+                    {categories && categories.map((singleCategory) => <option key={singleCategory._id} value={singleCategory._id}>{singleCategory.name}</option>)}
                 </select>
             </div>
             <button className="btn btn-outline-primary" type="submit" disabled={disabled}>Create Product</button>
